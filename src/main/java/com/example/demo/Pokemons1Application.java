@@ -33,17 +33,11 @@ public class Pokemons1Application extends SpringBootServletInitializer{
     public static class WarInitializerController {
 
     	  @GetMapping("/")
-          public String handler(
-    		  @RequestParam(required = true) final String name
-    			  ) throws JsonProcessingException   {
-    		  
+          public String handler(@RequestParam(required = true) final String name) throws JsonProcessingException   {
     		 String url = "https://pokeapi.co/api/v2/pokemon/"+name;
-      	    RestTemplate resTemplate = new RestTemplate();
-              String pok1 = resTemplate.getForObject(url,String.class); 
-              ObjectMapper objectMapper = new ObjectMapper();
-              String json = objectMapper.writeValueAsString(pok1);
-              Object ob = new ObjectMapper().readValue(json, Object.class);
-      	    JSONObject rot= new JSONObject(pok1);
+      	     RestTemplate resTemplate = new RestTemplate();
+             String pok1 = resTemplate.getForObject(url,String.class); 
+      	     JSONObject rot= new JSONObject(pok1);
                  
       		return "El Nombre del Pokemon es: "+rot.toMap().get("name");
     	  }
