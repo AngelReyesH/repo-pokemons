@@ -37,8 +37,8 @@ public class Pokemons1Application extends SpringBootServletInitializer{
     		 String url = "https://pokeapi.co/api/v2/pokemon/"+name;
       	     RestTemplate resTemplate = new RestTemplate();
              String pok1 = resTemplate.getForObject(url,String.class); 
-      	     JSONObject rot= new JSONObject(pok1);
-                return "deveria de funcionar: "+name; 
+      	     //JSONObject rot= new JSONObject(pok1);
+                return pok1; 
       		//return "El Nombre del Pokemon es: "+rot.toMap().get("name");
     	  }
     	  
