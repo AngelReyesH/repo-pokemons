@@ -3,6 +3,7 @@ package com.example.demo;
 import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootApplication
 public class Pokemons1Application extends SpringBootServletInitializer{
-
+	  @Override
+	    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+	        return builder.sources(Pokemons1Application.class);
+	    }
+	  
 	public static void main(String[] args) {
 		SpringApplication.run(Pokemons1Application.class, args);
 	}

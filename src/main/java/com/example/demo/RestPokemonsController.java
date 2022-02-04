@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
+@ComponentScan(basePackages="com.example.demo")
 public class RestPokemonsController {
 	
 
