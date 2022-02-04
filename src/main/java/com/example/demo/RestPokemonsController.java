@@ -30,7 +30,7 @@ public class RestPokemonsController {
         Object ob = new ObjectMapper().readValue(json, Object.class);
 	    JSONObject rot= new JSONObject(pok1);
            
-		return ResponseEntity.status(HttpStatus.OK).body(rot.toMap().get("name"));
+		return "El Nombre del Pokemon es: "+rot.toMap().get("name");
 	}
 	
 	
