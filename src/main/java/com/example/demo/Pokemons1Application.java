@@ -35,9 +35,9 @@ public class Pokemons1Application extends SpringBootServletInitializer{
     	  @GetMapping("/")
           public String handler(
     		  @RequestParam(required = true) final String name
-    			  ) throws JsonMappingException, JsonProcessingException   {
+    			  ) throws JsonProcessingException   {
     		  
-    		  String url = "https://pokeapi.co/api/v2/pokemon/"+name;
+    		 String url = "https://pokeapi.co/api/v2/pokemon/"+name;
       	    RestTemplate resTemplate = new RestTemplate();
               String pok1 = resTemplate.getForObject(url,String.class); 
               ObjectMapper objectMapper = new ObjectMapper();
