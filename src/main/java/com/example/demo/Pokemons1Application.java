@@ -1,9 +1,11 @@
 package com.example.demo;
 
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -31,6 +34,10 @@ public class Pokemons1Application extends SpringBootServletInitializer{
 
     @RestController
     public static class WarInitializerController {
+    	
+    
+    	    
+    	    
     	@GetMapping("/test")
         public String handler2(@RequestParam(required = true) final String name) {
            return "Proyecto Iniciado! "+ name;
@@ -38,14 +45,14 @@ public class Pokemons1Application extends SpringBootServletInitializer{
     	  @GetMapping("/")
           public String handler(@RequestParam(required = true) final String name)  {
     		 String url = "https://pokeapi.co/api/v2/pokemon/"+name;
-                 try { 
+                  
+                	
              RestTemplate resTemplate = new RestTemplate();
+             resTemplate.setErrorHandler(new MyErrorHandler());
              String pok1 = resTemplate.getForObject(url,String.class); 
       	     JSONObject rot= new JSONObject(pok1);
 					return "El Nombre del Pokemon es: "+rot.toMap().get("name");
-				} catch (Exception e) {
-					return "No se puede Procesar la peticion";
-				}
+				
       		
     	  }
     	  
