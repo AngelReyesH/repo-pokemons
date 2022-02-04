@@ -45,15 +45,16 @@ public class Pokemons1Application extends SpringBootServletInitializer{
     	  @GetMapping("/")
           public String handler(@RequestParam(required = true) final String name)  {
     		 String url = "https://pokeapi.co/api/v2/pokemon/"+name;
-                  
-                	
-             RestTemplate resTemplate = new RestTemplate();
-             resTemplate.setErrorHandler(new MyErrorHandler());
+    		 try {
+				 RestTemplate resTemplate = new RestTemplate();
              String pok1 = resTemplate.getForObject(url,String.class); 
       	     JSONObject rot= new JSONObject(pok1);
-					return "El Nombre del Pokemon es: "+rot.toMap().get("name");
-				
-      		
+      	     return "El Nombre del Pokemon es: "+rot.toMap().get("name");
+			} catch (Exception e) {
+				return "No se puede Procesar la ur: "+url;
+			}
+            
+		
     	  }
     	  
 
