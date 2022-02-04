@@ -4,6 +4,7 @@ package com.example.demo;
 import java.util.List;
 
 import org.json.*;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
-
+@ComponentScan(basePackages="com.example.demo")
 public class RestPokemonsController {
 	
 
