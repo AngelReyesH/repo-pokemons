@@ -36,7 +36,7 @@ public class Pokemons1Application extends SpringBootServletInitializer{
     @RestController
     public static class WarInitializerController {
 
-    	@RequestMapping(value = "/pokemons/name/{name}", method = RequestMethod.GET)
+    	@RequestMapping("/pokemons/name/{name}")
     	@ResponseStatus(HttpStatus.OK)
     	public @ResponseBody Object getPokemonsByName(@PathVariable("name") String name) throws JsonMappingException, JsonProcessingException  {
     		String url = "https://pokeapi.co/api/v2/pokemon/"+name;
