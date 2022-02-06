@@ -1,17 +1,13 @@
-package com.example.demo;
+package com.example.demo.controller;
 
 
-import java.util.List;
 
-import org.json.*;
-import org.springframework.context.annotation.ComponentScan;
+import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,12 +16,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
-@ComponentScan(basePackages="com.example.demo")
 public class RestPokemonsController {
 	
 
-	@RequestMapping(value = "/pokemons/name/{name}", method = RequestMethod.GET)
-	@ResponseStatus(HttpStatus.OK)
+	@GetMapping(value = "/pokemons/name/{name}")
 	public @ResponseBody Object getPokemonsByName(@PathVariable("name") String name) throws JsonMappingException, JsonProcessingException  {
 		String url = "https://pokeapi.co/api/v2/pokemon/"+name;
 	    RestTemplate resTemplate = new RestTemplate();
@@ -40,8 +34,7 @@ public class RestPokemonsController {
 	
 	
 	
-	@RequestMapping(value = "/pokemons/id/{name}", method = RequestMethod.GET)
-	@ResponseStatus(HttpStatus.OK)
+	@GetMapping(value = "/pokemons/id/{name}")
 	public @ResponseBody Object getPokemonsById(@PathVariable("name") String name) throws JsonMappingException, JsonProcessingException {
 		String url = "https://pokeapi.co/api/v2/pokemon/"+name;
 	    RestTemplate resTemplate = new RestTemplate();
@@ -53,8 +46,7 @@ public class RestPokemonsController {
 		return "Id del Pokemon "+name+" es: "+rot.toMap().get("id");
 	}
 	
-	@RequestMapping(value = "/pokemons/abilities/{name}", method = RequestMethod.GET)
-	@ResponseStatus(HttpStatus.OK)
+	@GetMapping(value = "/pokemons/abilities/{name}")
 	public @ResponseBody Object getPokemonsByAbilities(@PathVariable("name") String name) throws JsonMappingException, JsonProcessingException {
 		String url = "https://pokeapi.co/api/v2/pokemon/"+name;
 	    RestTemplate resTemplate = new RestTemplate();
@@ -65,8 +57,7 @@ public class RestPokemonsController {
 	    JSONObject rot= new JSONObject(pok1);  
 		return ResponseEntity.status(HttpStatus.OK).body(rot.toMap().get("abilities"));
 	}
-	@RequestMapping(value = "/pokemons/base-experiences/{name}", method = RequestMethod.GET)
-	@ResponseStatus(HttpStatus.OK)
+	@GetMapping(value = "/pokemons/base-experiences/{name}")
 	public @ResponseBody Object getPokemonsByBase(@PathVariable("name") String name) throws JsonMappingException, JsonProcessingException {
 		String url = "https://pokeapi.co/api/v2/pokemon/"+name;
 	    RestTemplate resTemplate = new RestTemplate();
@@ -78,8 +69,7 @@ public class RestPokemonsController {
 		return "La base-experiences del Pokemon "+name+" es "+rot.toMap().get("base_experience");
 	}
 	
-	@RequestMapping(value = "/pokemons/held-items/{name}", method = RequestMethod.GET)
-	@ResponseStatus(HttpStatus.OK)
+	@GetMapping(value = "/pokemons/held-items/{name}")
 	public @ResponseBody Object getPokemonsByHeld(@PathVariable("name") String name) throws JsonMappingException, JsonProcessingException {
 		String url = "https://pokeapi.co/api/v2/pokemon/"+name;
 	    RestTemplate resTemplate = new RestTemplate();
@@ -91,8 +81,7 @@ public class RestPokemonsController {
 	    return ResponseEntity.status(HttpStatus.OK).body(rot.toMap().get("held_items"));
 	}
 	
-	@RequestMapping(value = "/pokemons/location-area-encounters/{name}", method = RequestMethod.GET)
-	@ResponseStatus(HttpStatus.OK)
+	@GetMapping(value = "/pokemons/location-area-encounters/{name}")
 	public @ResponseBody Object getPokemonsByLocation(@PathVariable("name") String name) throws JsonMappingException, JsonProcessingException {
 		String url = "https://pokeapi.co/api/v2/pokemon/"+name;
 	    RestTemplate resTemplate = new RestTemplate();
