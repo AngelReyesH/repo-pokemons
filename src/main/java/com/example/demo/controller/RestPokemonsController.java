@@ -18,9 +18,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RestController
 public class RestPokemonsController {
 	
-
+	@ResponseBody
 	@GetMapping(value = "/pokemons/name/{name}")
-	public @ResponseBody Object getPokemonsByName(@PathVariable("name") String name) throws JsonMappingException, JsonProcessingException  {
+	public Object getPokemonsByName(@PathVariable("name") String name) throws JsonMappingException, JsonProcessingException  {
 		String url = "https://pokeapi.co/api/v2/pokemon/"+name;
 	    RestTemplate resTemplate = new RestTemplate();
         String pok1 = resTemplate.getForObject(url,String.class); 
@@ -33,9 +33,9 @@ public class RestPokemonsController {
 	}
 	
 	
-	
+	@ResponseBody
 	@GetMapping(value = "/pokemons/id/{name}")
-	public @ResponseBody Object getPokemonsById(@PathVariable("name") String name) throws JsonMappingException, JsonProcessingException {
+	public Object getPokemonsById(@PathVariable("name") String name) throws JsonMappingException, JsonProcessingException {
 		String url = "https://pokeapi.co/api/v2/pokemon/"+name;
 	    RestTemplate resTemplate = new RestTemplate();
         String pok1 = resTemplate.getForObject(url,String.class); 
@@ -46,8 +46,9 @@ public class RestPokemonsController {
 		return "Id del Pokemon "+name+" es: "+rot.toMap().get("id");
 	}
 	
+	@ResponseBody
 	@GetMapping(value = "/pokemons/abilities/{name}")
-	public @ResponseBody Object getPokemonsByAbilities(@PathVariable("name") String name) throws JsonMappingException, JsonProcessingException {
+	public  Object getPokemonsByAbilities(@PathVariable("name") String name) throws JsonMappingException, JsonProcessingException {
 		String url = "https://pokeapi.co/api/v2/pokemon/"+name;
 	    RestTemplate resTemplate = new RestTemplate();
         String pok1 = resTemplate.getForObject(url,String.class); 
@@ -57,8 +58,9 @@ public class RestPokemonsController {
 	    JSONObject rot= new JSONObject(pok1);  
 		return ResponseEntity.status(HttpStatus.OK).body(rot.toMap().get("abilities"));
 	}
+	
 	@GetMapping(value = "/pokemons/base-experiences/{name}")
-	public @ResponseBody Object getPokemonsByBase(@PathVariable("name") String name) throws JsonMappingException, JsonProcessingException {
+	public  Object getPokemonsByBase(@PathVariable("name") String name) throws JsonMappingException, JsonProcessingException {
 		String url = "https://pokeapi.co/api/v2/pokemon/"+name;
 	    RestTemplate resTemplate = new RestTemplate();
         String pok1 = resTemplate.getForObject(url,String.class); 
@@ -69,8 +71,9 @@ public class RestPokemonsController {
 		return "La base-experiences del Pokemon "+name+" es "+rot.toMap().get("base_experience");
 	}
 	
+	@ResponseBody
 	@GetMapping(value = "/pokemons/held-items/{name}")
-	public @ResponseBody Object getPokemonsByHeld(@PathVariable("name") String name) throws JsonMappingException, JsonProcessingException {
+	public  Object getPokemonsByHeld(@PathVariable("name") String name) throws JsonMappingException, JsonProcessingException {
 		String url = "https://pokeapi.co/api/v2/pokemon/"+name;
 	    RestTemplate resTemplate = new RestTemplate();
         String pok1 = resTemplate.getForObject(url,String.class); 
@@ -81,8 +84,9 @@ public class RestPokemonsController {
 	    return ResponseEntity.status(HttpStatus.OK).body(rot.toMap().get("held_items"));
 	}
 	
+	@ResponseBody
 	@GetMapping(value = "/pokemons/location-area-encounters/{name}")
-	public @ResponseBody Object getPokemonsByLocation(@PathVariable("name") String name) throws JsonMappingException, JsonProcessingException {
+	public  Object getPokemonsByLocation(@PathVariable("name") String name) throws JsonMappingException, JsonProcessingException {
 		String url = "https://pokeapi.co/api/v2/pokemon/"+name;
 	    RestTemplate resTemplate = new RestTemplate();
         String pok1 = resTemplate.getForObject(url,String.class); 
