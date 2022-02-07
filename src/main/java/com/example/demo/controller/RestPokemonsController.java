@@ -19,6 +19,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class RestPokemonsController {
 	
 	@ResponseBody
+	@GetMapping(value = "/pokemons/name/")
+	public String getPokemonsByNameee() throws JsonMappingException, JsonProcessingException  {
+	
+           
+		return "El Nombre del Pokemon es: plolpl";
+	}
+	
+	@ResponseBody
 	@GetMapping(value = "/pokemons/name/{name}")
 	public Object getPokemonsByName(@PathVariable("name") String name) throws JsonMappingException, JsonProcessingException  {
 		String url = "https://pokeapi.co/api/v2/pokemon/"+name;
