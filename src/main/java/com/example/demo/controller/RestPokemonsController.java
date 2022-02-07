@@ -35,8 +35,9 @@ public class RestPokemonsController {
         String pok1 = resTemplate.getForObject("https://pokeapi.co/api/v2/pokemon/"+name,String.class,name); 
         ObjectMapper objectMapper = new ObjectMapper();
         String json = objectMapper.writeValueAsString(pok1);
-        JsonNode jsonNode = objectMapper.readTree(json);
-		return "El Nombre del Pokemon es: "+jsonNode.get("abilities").asText();
+        Object ob = new ObjectMapper().readValue(json, Object.class);
+        JSONObject rot= new JSONObject(pok1);
+		return "El Nombre del Pokemon es: "+rot.toMap();
          
 	}
 	
