@@ -3,32 +3,23 @@ package com.example.demo.controller;
 
 
 import java.util.Map;
-
-import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
-
-import com.example.demo.model.pokemonModel;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 
 @Controller
+@RequestMapping(value = "/api/v1")
 public class RestPokemonsController {
 	
 	@ResponseBody
 	@GetMapping(value = "/pokemons/name/")
-	public String getPokemonsByNameee() throws JsonMappingException, JsonProcessingException  {
+	public String getPokemonsByNameee() {
 	
            
 		return "El Nombre del Pokemon es: plolpl";
@@ -36,7 +27,7 @@ public class RestPokemonsController {
 	
 	@ResponseBody
 	@GetMapping(value = "/pokemons/name/{name}")
-	public Object getPokemonsByName(@PathVariable(value = "name") String name) throws JsonMappingException, JsonProcessingException {
+	public Object getPokemonsByName(@PathVariable(value = "name") String name) {
 	    RestTemplate resTemplate = new RestTemplate();
         String pok1 = resTemplate.getForObject("https://pokeapi.co/api/v2/pokemon/"+name,String.class,name); 
         @SuppressWarnings("rawtypes")
@@ -49,68 +40,57 @@ public class RestPokemonsController {
 	
 	@ResponseBody
 	@GetMapping(value = "/pokemons/id/{name}")
-	public Object getPokemonsById(@PathVariable(value = "name") String name) throws JsonMappingException, JsonProcessingException {
-		String url = "https://pokeapi.co/api/v2/pokemon/"+name;
-	    RestTemplate resTemplate = new RestTemplate();
-        String pok1 = resTemplate.getForObject(url,String.class); 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(pok1);
-        Object ob = new ObjectMapper().readValue(json, Object.class);
-	    JSONObject rot= new JSONObject(pok1);
-		return "Id del Pokemon "+name+" es: "+rot.toMap().get("id");
+	public Object getPokemonsById(@PathVariable(value = "name") String name){
+		RestTemplate resTemplate = new RestTemplate();
+        String pok1 = resTemplate.getForObject("https://pokeapi.co/api/v2/pokemon/"+name,String.class,name); 
+        @SuppressWarnings("rawtypes")
+		Map jsonJavaRootObject = new Gson().fromJson(pok1, Map.class);
+		Object value = jsonJavaRootObject.get("id");
+		return "Id del Pokemon "+name+" es: "+value;
 	}
 	
 	@ResponseBody
 	@GetMapping(value = "/pokemons/abilities/{name}")
-	public  Object getPokemonsByAbilities(@PathVariable(value = "name") String name) throws JsonMappingException, JsonProcessingException {
-		String url = "https://pokeapi.co/api/v2/pokemon/"+name;
-	    RestTemplate resTemplate = new RestTemplate();
-        String pok1 = resTemplate.getForObject(url,String.class); 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(pok1);
-        Object ob = new ObjectMapper().readValue(json, Object.class);
-	    JSONObject rot= new JSONObject(pok1);  
-		return ResponseEntity.status(HttpStatus.OK).body(rot.toMap().get("abilities"));
+	public  Object getPokemonsByAbilities(@PathVariable(value = "name") String name) {
+		RestTemplate resTemplate = new RestTemplate();
+        String pok1 = resTemplate.getForObject("https://pokeapi.co/api/v2/pokemon/"+name,String.class,name); 
+        @SuppressWarnings("rawtypes")
+		Map jsonJavaRootObject = new Gson().fromJson(pok1, Map.class);
+        Object value = jsonJavaRootObject.get("abilities");
+		return ResponseEntity.status(HttpStatus.OK).body(value);
 	}
 	
 	@GetMapping(value = "/pokemons/base-experiences/{name}")
-	public  Object getPokemonsByBase(@PathVariable(value = "name") String name) throws JsonMappingException, JsonProcessingException {
-		String url = "https://pokeapi.co/api/v2/pokemon/"+name;
-	    RestTemplate resTemplate = new RestTemplate();
-        String pok1 = resTemplate.getForObject(url,String.class); 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(pok1);
-        Object ob = new ObjectMapper().readValue(json, Object.class);
-	    JSONObject rot= new JSONObject(pok1);
-		return "La base-experiences del Pokemon "+name+" es "+rot.toMap().get("base_experience");
+	public  Object getPokemonsByBase(@PathVariable(value = "name") String name) {
+		RestTemplate resTemplate = new RestTemplate();
+        String pok1 = resTemplate.getForObject("https://pokeapi.co/api/v2/pokemon/"+name,String.class,name); 
+        @SuppressWarnings("rawtypes")
+		Map jsonJavaRootObject = new Gson().fromJson(pok1, Map.class);
+        Object value = jsonJavaRootObject.get("base_experience");
+		return "La base-experiences del Pokemon "+name+" es "+value;
 	}
 	
 	@ResponseBody
 	@GetMapping(value = "/pokemons/held-items/{name}")
-	public  Object getPokemonsByHeld(@PathVariable(value = "name") String name) throws JsonMappingException, JsonProcessingException {
-		String url = "https://pokeapi.co/api/v2/pokemon/"+name;
-	    RestTemplate resTemplate = new RestTemplate();
-        String pok1 = resTemplate.getForObject(url,String.class); 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(pok1);
-        Object ob = new ObjectMapper().readValue(json, Object.class);
-	    JSONObject rot= new JSONObject(pok1);
-	    return ResponseEntity.status(HttpStatus.OK).body(rot.toMap().get("held_items"));
+	public  Object getPokemonsByHeld(@PathVariable(value = "name") String name) {
+		RestTemplate resTemplate = new RestTemplate();
+        String pok1 = resTemplate.getForObject("https://pokeapi.co/api/v2/pokemon/"+name,String.class,name); 
+        @SuppressWarnings("rawtypes")
+		Map jsonJavaRootObject = new Gson().fromJson(pok1, Map.class);
+        Object value = jsonJavaRootObject.get("held_items");
+	    return ResponseEntity.status(HttpStatus.OK).body(value);
 	}
 	
 	@ResponseBody
 	@GetMapping(value = "/pokemons/location-area-encounters/{name}")
-	public  Object getPokemonsByLocation(@PathVariable(value = "name") String name) throws JsonMappingException, JsonProcessingException {
-		String url = "https://pokeapi.co/api/v2/pokemon/"+name;
-	    RestTemplate resTemplate = new RestTemplate();
-        String pok1 = resTemplate.getForObject(url,String.class); 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(pok1);
-        Object ob = new ObjectMapper().readValue(json, Object.class);
-	    JSONObject rot= new JSONObject(pok1);
-	    String l = (String) rot.toMap().get("location_area_encounters");
-	    String pok11 = resTemplate.getForObject(l,String.class);
-	    return pok11;
+	public  Object getPokemonsByLocation(@PathVariable(value = "name") String name){
+		RestTemplate resTemplate = new RestTemplate();
+        String pok1 = resTemplate.getForObject("https://pokeapi.co/api/v2/pokemon/"+name,String.class,name); 
+        @SuppressWarnings("rawtypes")
+		Map jsonJavaRootObject = new Gson().fromJson(pok1, Map.class);
+        Object valueT = jsonJavaRootObject.get("location_area_encounters");
+	    String value = resTemplate.getForObject((String)valueT,String.class);
+	    return value;
 	}
 	
 	
