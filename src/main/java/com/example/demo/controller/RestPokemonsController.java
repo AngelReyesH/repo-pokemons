@@ -28,9 +28,8 @@ public class RestPokemonsController {
 	@ResponseBody
 	@GetMapping(value = "/pokemons/name/{name}")
 	public Object getPokemonsByName(@PathVariable(value = "name") String name) throws JsonMappingException, JsonProcessingException {
-		String url = "https://pokeapi.co/api/v2/pokemon/"+name;
 	    RestTemplate resTemplate = new RestTemplate();
-        String pok1 = resTemplate.getForObject(url,String.class); 
+        String pok1 = resTemplate.getForObject("https://pokeapi.co/api/v2/pokemon/"+name,String.class,name); 
         ObjectMapper objectMapper = new ObjectMapper();
         String json = objectMapper.writeValueAsString(pok1);
         Object ob = new ObjectMapper().readValue(json, Object.class);
