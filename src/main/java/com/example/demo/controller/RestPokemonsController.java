@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 
 
+import java.util.Map;
+
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +14,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.model.pokemonModel;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 
 @Controller
 public class RestPokemonsController {
@@ -35,9 +41,11 @@ public class RestPokemonsController {
         String pok1 = resTemplate.getForObject("https://pokeapi.co/api/v2/pokemon/"+name,String.class,name); 
         ObjectMapper objectMapper = new ObjectMapper();
         String json = objectMapper.writeValueAsString(pok1);
-        Object ob = new ObjectMapper().readValue(json, Object.class);
-        JSONObject rot= new JSONObject(pok1);
-		return "El Nombre del Pokemon es: "+rot.toMap();
+        Object ob = new ObjectMapper().readValue(json, Object.class);//con los /
+        
+        Map jsonJavaRootObject = new Gson().fromJson(pok1, Map.class);
+		
+		return "El Nombre del Pokemon es: "+jsonJavaRootObject.get("name");
          
 	}
 	
