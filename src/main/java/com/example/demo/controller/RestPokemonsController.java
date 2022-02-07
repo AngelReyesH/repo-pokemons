@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
+
+import com.example.demo.model.pokemonModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -32,10 +35,9 @@ public class RestPokemonsController {
         String pok1 = resTemplate.getForObject("https://pokeapi.co/api/v2/pokemon/"+name,String.class,name); 
         ObjectMapper objectMapper = new ObjectMapper();
         String json = objectMapper.writeValueAsString(pok1);
-        Object ob = new ObjectMapper().readValue(json, Object.class);
-	    JSONObject rot= new JSONObject(pok1);
-           
-		return "El Nombre del Pokemon es: "+rot.toMap().get("name");
+        JsonNode jsonNode = objectMapper.readTree(json);
+		return "El Nombre del Pokemon es: "+jsonNode.get("abilities").asText();
+         
 	}
 	
 	
